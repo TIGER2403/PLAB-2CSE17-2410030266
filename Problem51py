@@ -1,0 +1,27 @@
+import heapq
+
+class HalveSum:
+    def __init__(self, arr):
+        self.arr = arr
+
+    def min_operations(self):
+        total = sum(self.arr)
+        target = total / 2
+        heap = [-x for x in self.arr]
+        heapq.heapify(heap)
+        ops = 0
+        reduced = 0
+
+        while reduced < target:
+            largest = -heapq.heappop(heap)
+            half = largest / 2
+            reduced += half
+            heapq.heappush(heap, -half)
+            ops += 1
+
+        return ops
+
+
+arr = list(map(int, input().split()))
+obj = HalveSum(arr)
+print(obj.min_operations())
